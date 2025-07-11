@@ -1,5 +1,5 @@
 import { expect, Page, Locator } from '@playwright/test';
-import { getRandomCheckinAndCheckoutDates, formatDateForConfirmation, formatDateForAriaLabel } from '../helpers/datePicker';
+import { formatDateForConfirmation, formatDateForAriaLabel } from '../helpers/datePicker';
 import { generateRandomEmail, generateRandomPhoneNumber } from '../helpers/randomGenerators';
 
 export class HomePage {
@@ -47,7 +47,6 @@ export class HomePage {
         };
     }
 
-
     async openPage(page: Page) {
         await page.goto('https://automationintesting.online');
         await expect(this.headings.welcome).toBeVisible();
@@ -73,8 +72,8 @@ export class HomePage {
         await this.textboxes.contactName.fill('First and Last Name');
         await this.textboxes.contactEmail.fill('email@hotmail.com');
         await this.textboxes.contactPhone.fill('07865765465');
-        await this.textboxes.contactSubject.fill('Quadruple Room Availability');
-        await this.textboxes.contactMessage.fill('Hi, I would like to check for the availability of Quadruple Rooms at your B&B');
+        await this.textboxes.contactSubject.fill('Family Room Availability');
+        await this.textboxes.contactMessage.fill('Hi, I would like to check for the availability of Family Rooms at your B&B');
         await this.buttons.submit.click();
     }
 
@@ -92,9 +91,9 @@ export class HomePage {
      * In a production environment, a data-testid or unique attribute should be used instead.
      */
     async reserveDoubleRoomWithDynamicDates(page: Page) {
-        // Use fixed dates: Saturday 26th July to Monday 28th July 2025
-        const checkinDate = new Date(2025, 6, 26); // July is month 6 (0-indexed)
-        const checkoutDate = new Date(2025, 6, 28);
+        // Use fixed dates: Tuesday 22nd July to Thursday 24th July 2025
+        const checkinDate = new Date(2025, 6, 22); // July is month 6 (0-indexed)
+        const checkoutDate = new Date(2025, 6, 24);
         const checkinLabel = formatDateForAriaLabel(checkinDate);
         const checkoutLabel = formatDateForAriaLabel(checkoutDate);
         console.log(checkinLabel);
@@ -137,7 +136,7 @@ export class HomePage {
         try {
             await expect(confirmationCard.getByRole('heading', { name: 'Booking Confirmed' })).toBeVisible();
             await expect(confirmationCard.getByText('Your booking has been confirmed for the following dates:')).toBeVisible();
-            await expect(confirmationCard.getByText('2025-07-26 - 2025-07-28')).toBeVisible();
+            await expect(confirmationCard.getByText('2025-07-22 - 2025-07-24')).toBeVisible();
         } catch (e) {
             // Fallback: Error handling for 500 response and error message
             const reservationResponse = await page.waitForResponse(response =>
