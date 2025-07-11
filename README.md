@@ -46,11 +46,6 @@ To run tests in **headed mode** (visible browser):
 npx playwright test --headed
 ```
 
-To run tests in **parallel**:
-```bash
-npx playwright test --workers=4
-```
-
 ---
 
 ## 🧠 Design Approach
@@ -88,7 +83,7 @@ Validate the critical customer-facing functionality of [https://automationintest
 - **Execution:** Local with optional headless/headed modes
 
 ### Assumptions & Constraints
-- The site is a static demo and does not persist form data or booking requests.
+- The site is a static demo and does not retain form data or booking requests.
 - The admin login functionality is non-functional or placeholder (unauthorised login is expected).
 - Performance test is simplified and limited to single-metric collection (Time to First Byte).
 
@@ -98,7 +93,7 @@ Validate the critical customer-facing functionality of [https://automationintest
 
 ## Summary
 
-The **"Amenities"** navigation button does not function as expected. Clicking the button updates the URL to include the anchor `#amenities`, but no visible section or content is displayed, and the page does not scroll or update accordingly.
+The **"Amenities"** navigation button does not function as expected. Clicking the button updates the URL to include `#amenities`, but no visible section or content is displayed, and the page does not scroll or update accordingly.
 
 ---
 
@@ -160,10 +155,10 @@ During testing, sporadic **500 Internal Server Errors** were encountered when at
 **With additional time beyond the 2-hour assessment window, I would:**
 
 1. **Implement comprehensive logging** to capture the exact request/response data when 500 errors occur
-2. **Add test data cleanup** to ensure each test run starts with a clean state
+2. **Add test data cleanup** to ensure a clean state for each test run
 3. **Create a booking availability checker** to verify dates before attempting to book
 4. **Implement retry logic** with exponential backoff for transient server errors
 5. **Add detailed error reporting** to help identify patterns in the 500 errors
 6. **Coordinate with the backend team** to improve error handling for booking conflicts
 
-The current implementation includes basic error handling as a fallback, but a production environment would require more robust debugging and error recovery mechanisms.
+The current implementation includes basic error handling as a fallback, but with more time and development it would be ideal to implement more robust debugging and error recovery mechanisms.
